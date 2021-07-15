@@ -1,6 +1,9 @@
+import { Link } from 'react-router-dom'
+
 const ResultsPage = () => (
   <div id="ResultsPage">
-    Hello World!
+    Results:
+    <Link to="/">PLAY AGAIN?</Link>
   </div>
 )
 
