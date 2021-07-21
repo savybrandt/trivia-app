@@ -18,7 +18,7 @@ const TriviaApp = React.memo(({ questions }) => (
         <QuestionPage questions={questions} />
       </Route>
       <Route path="/results">
-        <ResultsPage />
+        <ResultsPage questions={questions} />
       </Route>
       <Route exact path="/">
         <IntroPage />

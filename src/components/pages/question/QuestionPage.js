@@ -1,17 +1,33 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+
+const ResponseOptions = ({ onResponse }) => (
+    <>
+        <button onClick={() => onResponse('True')}>True</button>
+        <button onClick={() => onResponse('False')}>False</button>
+    </>
+)
 
 const QuestionPage = ({ questions }) => {
+    const history = useHistory()
+    const [responses, setResponses] = useState([])
     const [questionNum, setQuestionNum] = useState(0)
     const question = questions[questionNum]
+    
+    const onRespose = response => {
+        const updatedResponses = [...responses, ...[response]]
+        if (questionNum === questions.length-1) {
+            history.push(`/results?responses=${updatedResponses}`)
+        } else {
+            setResponses(updatedResponses)
+            setQuestionNum(questionNum+1)
+        }
+    }
+    
     return (
       <div id="QuestionPage">
         Question: {question?.question}
-        <Link to="/">Cancel</Link>
-        {questionNum === questions.length - 1 ? 
-            <Link to="/results">Results</Link> :
-            <button onClick={() => setQuestionNum(questionNum+1)}>Next</button>
-        }
+        <ResponseOptions onResponse={onRespose}/>
       </div>
     )
 }
