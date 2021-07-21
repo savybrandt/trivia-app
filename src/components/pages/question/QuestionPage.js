@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 const ResponseOptions = ({ onResponse }) => (
-    <>
+    <div>
         <button onClick={() => onResponse('True')}>True</button>
         <button onClick={() => onResponse('False')}>False</button>
-    </>
+    </div>
 )
 
 const QuestionPage = ({ questions }) => {
@@ -26,7 +26,9 @@ const QuestionPage = ({ questions }) => {
     
     return (
       <div id="QuestionPage">
-        Question: {question?.question}
+        <h1>{question.category}</h1>
+        <p>{question?.question}</p>
+        <span>{`${questionNum + 1}/${questions.length}`}</span>
         <ResponseOptions onResponse={onRespose}/>
       </div>
     )

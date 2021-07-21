@@ -4,11 +4,21 @@ const useQuery = () => new URLSearchParams(useLocation().search)
 
 const isResponseCorrect = (question, response) => question.answer === response
 
+const getScore = (questions, responses) => {
+    let correctCount = 0
+    questions.forEach((question, index) => {
+        if (isResponseCorrect(question, responses[index])) {
+            correctCount = correctCount + 1
+        }
+    })
+    return `${correctCount}/${questions.length}`
+}
+
 const Result = ({question, response}) => (
-    <div>
+    <p>
         <span>{isResponseCorrect(question, response) ? "+" :"-" }</span>
         {question.question}
-    </div>
+    </p>
 )
 
 const ResultsPage = ({ questions }) => {
@@ -17,7 +27,7 @@ const ResultsPage = ({ questions }) => {
     
     return (
     <div id="ResultsPage">
-        Results:
+        <h1>You Scored {getScore(questions, responses)}</h1>
         {questions.map((question, idx) => (
             <Result key={question.question} question={question} response={responses[idx]}/>
         ))}
