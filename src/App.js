@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import useAxios from 'axios-hooks'
+import React, { useState } from 'react';
+import useAxios from 'axios-hooks';
 import './App.css';
-import { reduceQuestionsPayload } from './helpers'
-import { IntroPage, QuestionPage, ResultsPage } from './components/pages/index.js'
-import { 
+import {
   Route,
   Switch,
   BrowserRouter as Router,
- } from "react-router-dom"
+} from 'react-router-dom';
+import { reduceQuestionsPayload } from './helpers';
+import { IntroPage, QuestionPage, ResultsPage } from './components/pages/index.js';
 
-const questionsPath = 'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean'
+const questionsPath = 'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean';
 
 const TriviaApp = React.memo(({ questions }) => (
   <Router>
@@ -25,27 +25,27 @@ const TriviaApp = React.memo(({ questions }) => (
       </Route>
     </Switch>
   </Router>
-))
+));
 
 const App = () => {
-  const [questions, setQuestions] = useState()
-  const [{ data, loading, error }] = useAxios(questionsPath)
-  
+  const [questions, setQuestions] = useState();
+  const [{ data, loading, error }] = useAxios(questionsPath);
+
   if (!questions && data) {
-    setQuestions(reduceQuestionsPayload(data.results))
+    setQuestions(reduceQuestionsPayload(data.results));
   }
 
-  if(error) {
-    throw new Error(error)
+  if (error) {
+    throw new Error(error);
   }
 
-  if(loading) {
-    return (<h1>Loading...</h1>)
+  if (loading) {
+    return (<h1>Loading...</h1>);
   }
 
   return (
     <TriviaApp questions={questions} />
-  )
-}
+  );
+};
 
-export default App
+export default App;
