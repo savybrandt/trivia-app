@@ -1,0 +1,29 @@
+#resultsList {
+    text-align: left;
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.resultsListItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.correctnessIndicator {
+    font-size: 40px;
+    margin-top: -8px;
+}
+
+.correctnessIndicator.plus {
+    margin-right: 32px;
+}
+
+.correctnessIndicator.minus {
+    margin-right: 40px;
+}

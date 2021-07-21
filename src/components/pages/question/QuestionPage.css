@@ -1,0 +1,22 @@
+#questionBox {
+    height: 210px;
+    width: 210px;
+    border: solid 1px;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    padding: 50px;
+    font-weight: bold;
+}
+
+#questionBox > p {
+    width: 100%;
+    overflow-wrap: break-word;
+}
+
+#ResponseOptions {
+    width: 312px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}

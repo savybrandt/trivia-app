@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
+import './ResultsPage.css';
 
 const useQuery = () => new URLSearchParams(useLocation().search)
 
@@ -11,15 +12,23 @@ const getScore = (questions, responses) => {
             correctCount = correctCount + 1
         }
     })
-    return `${correctCount}/${questions.length}`
+    return `${correctCount} / ${questions.length}`
 }
 
-const Result = ({question, response}) => (
-    <p>
-        <span>{isResponseCorrect(question, response) ? "+" :"-" }</span>
-        {question.question}
-    </p>
-)
+const Result = ({question, response}) => {
+    const correct = isResponseCorrect(question, response)
+    return (
+        <li className="resultsListItem">
+            <span 
+                className={`correctnessIndicator ${correct ? 'plus' : 'minus'}`} 
+                aria-label={`Question answered ${correct ? 'correctly:' : 'incorrectly:'}`}
+            >
+                {correct ? "+" :"-" }
+            </span>
+            {question.question}
+        </li>
+    )
+}
 
 const ResultsPage = ({ questions }) => {
     const query = useQuery()
@@ -27,11 +36,13 @@ const ResultsPage = ({ questions }) => {
     
     return (
     <div id="ResultsPage">
-        <h1>You Scored {getScore(questions, responses)}</h1>
-        {questions.map((question, idx) => (
-            <Result key={question.question} question={question} response={responses[idx]}/>
-        ))}
-        <Link to="/">PLAY AGAIN?</Link>
+        <h1>You scored <br/>{getScore(questions, responses)}</h1>
+        <ul id="resultsList">
+            {questions.map((question, idx) => (
+                <Result key={question.question} question={question} response={responses[idx]}/>
+            ))}
+        </ul>
+        <Link className="footer-link" to="/">PLAY AGAIN?</Link>
     </div>
     )
 }

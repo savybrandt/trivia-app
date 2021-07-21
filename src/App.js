@@ -12,7 +12,7 @@ import {
 const questionsPath = 'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean'
 
 const TriviaApp = React.memo(({ questions }) => (
-  <Router id="App">
+  <Router>
     <Switch>
       <Route path="/questions">
         <QuestionPage questions={questions} />
