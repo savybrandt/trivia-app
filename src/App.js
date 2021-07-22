@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import useAxios from 'axios-hooks';
 import './App.css';
 import {
@@ -7,7 +8,7 @@ import {
   BrowserRouter as Router,
 } from 'react-router-dom';
 import { reduceQuestionsPayload } from './helpers';
-import { IntroPage, QuestionPage, ResultsPage } from './components/pages/index.js';
+import { IntroPage, QuestionPage, ResultsPage } from './components/pages';
 
 const questionsPath = 'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean';
 
@@ -26,6 +27,14 @@ const TriviaApp = React.memo(({ questions }) => (
     </Switch>
   </Router>
 ));
+
+TriviaApp.propTypes = {
+  questions: PropTypes.arrayOf(PropTypes.shape({
+    question: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+  })).isRequired,
+};
 
 const App = () => {
   const [questions, setQuestions] = useState();

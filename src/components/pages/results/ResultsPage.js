@@ -1,3 +1,5 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import './ResultsPage.css';
 
@@ -30,6 +32,14 @@ const Result = ({ question, response }) => {
   );
 };
 
+Result.propTypes = {
+  question: PropTypes.shape({
+    question: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired,
+  }).isRequired,
+  response: PropTypes.string.isRequired,
+};
+
 const ResultsPage = ({ questions }) => {
   const query = useQuery();
   const responses = query.get('responses').split(',');
@@ -49,6 +59,14 @@ const ResultsPage = ({ questions }) => {
       <Link className="footer-link" to="/">PLAY AGAIN?</Link>
     </div>
   );
+};
+
+ResultsPage.propTypes = {
+  questions: PropTypes.arrayOf(PropTypes.shape({
+    question: PropTypes.string.isRequired,
+    answer: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 export default ResultsPage;
