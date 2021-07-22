@@ -10,8 +10,6 @@ import {
 import { reduceQuestionsPayload } from './helpers';
 import { IntroPage, QuestionPage, ResultsPage } from './components/pages';
 
-const questionsPath = 'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean';
-
 const TriviaApp = React.memo(({ questions }) => (
   <Router>
     <Switch>
@@ -35,6 +33,8 @@ TriviaApp.propTypes = {
     category: PropTypes.string.isRequired,
   })).isRequired,
 };
+
+const questionsPath = 'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean';
 
 const App = () => {
   const [questions, setQuestions] = useState();

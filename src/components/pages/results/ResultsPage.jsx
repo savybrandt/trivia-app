@@ -1,21 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './ResultsPage.css';
-
-const useQuery = () => new URLSearchParams(useLocation().search);
-
-const isResponseCorrect = (question, response) => question.answer === response;
-
-const getScore = (questions, responses) => {
-  let correctCount = 0;
-  questions.forEach((question, index) => {
-    if (isResponseCorrect(question, responses[index])) {
-      correctCount += 1;
-    }
-  });
-  return `${correctCount} / ${questions.length}`;
-};
+import {
+  useQuery,
+  getScore,
+  isResponseCorrect,
+} from './helpers';
 
 const Result = ({ question, response }) => {
   const correct = isResponseCorrect(question, response);
@@ -43,6 +34,8 @@ Result.propTypes = {
 const ResultsPage = ({ questions }) => {
   const query = useQuery();
   const responses = query.get('responses').split(',');
+
+  if (!responses) return null;
 
   return (
     <div id="ResultsPage">

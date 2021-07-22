@@ -3,24 +3,13 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import './QuestionPage.css';
 
-const ResponseOptions = ({ onResponse }) => (
-  <div id="ResponseOptions">
-    <button type="button" className="box-btn" onClick={() => onResponse('True')}>True</button>
-    <button type="button" className="box-btn" onClick={() => onResponse('False')}>False</button>
-  </div>
-);
-
-ResponseOptions.propTypes = {
-  onResponse: PropTypes.func.isRequired,
-};
-
 const QuestionPage = ({ questions }) => {
   const history = useHistory();
   const [responses, setResponses] = useState([]);
   const [questionNum, setQuestionNum] = useState(0);
   const question = questions[questionNum];
 
-  const onRespose = (response) => {
+  const onResponse = (response) => {
     const updatedResponses = [...responses, ...[response]];
     if (questionNum === questions.length - 1) {
       history.push(`/results?responses=${updatedResponses}`);
@@ -39,7 +28,10 @@ const QuestionPage = ({ questions }) => {
         <p>{question.question}</p>
       </div>
       <div className="pvl">{`${questionNum + 1} of ${questions.length}`}</div>
-      <ResponseOptions onResponse={onRespose} />
+      <div id="responseOptions">
+        <button type="button" className="box-btn" onClick={() => onResponse('True')}>True</button>
+        <button type="button" className="box-btn" onClick={() => onResponse('False')}>False</button>
+      </div>
     </div>
   );
 };
