@@ -5,8 +5,8 @@ import './QuestionPage.css';
 
 const ResponseOptions = ({ onResponse }) => (
   <div id="ResponseOptions">
-    <button className="box-btn" onClick={() => onResponse('True')}>True</button>
-    <button className="box-btn" onClick={() => onResponse('False')}>False</button>
+    <button type="button" className="box-btn" onClick={() => onResponse('True')}>True</button>
+    <button type="button" className="box-btn" onClick={() => onResponse('False')}>False</button>
   </div>
 );
 
