@@ -31,6 +31,7 @@ describe('App', () => {
 
   test('throws an error if present', () => {
     useAxios.default.mockReturnValue(errorPayload);
+    console.log('Error below is expected from test: "throws an error if present"')
     expect(() => render(<App />)).toThrow('oops!')
   });
 
