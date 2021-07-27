@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import './QuestionPage.css';
 
-const QuestionPage = ({ questions }) => {
+const QuestionPage = ({ questions, initQuestionNum }) => {
   const history = useHistory();
   const [responses, setResponses] = useState([]);
-  const [questionNum, setQuestionNum] = useState(0);
+  const [questionNum, setQuestionNum] = useState(initQuestionNum);
   const question = questions[questionNum];
 
   const onResponse = (response) => {
@@ -42,6 +42,11 @@ QuestionPage.propTypes = {
     answer: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
   })).isRequired,
+  initQuestionNum: PropTypes.number, // for testing purposes
+};
+
+QuestionPage.defaultProps = {
+  initQuestionNum: 0,
 };
 
 export default QuestionPage;
