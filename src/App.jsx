@@ -36,7 +36,7 @@ TriviaApp.propTypes = {
 
 const questionsPath = 'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean';
 
-const Loader = () => <h1>Loading...</h1>
+const Loader = () => <h1>Loading...</h1>;
 
 const App = () => {
   const [questions, setQuestions] = useState();
@@ -44,7 +44,7 @@ const App = () => {
 
   if (!questions && data) {
     setQuestions(reduceQuestionsPayload(data.results));
-    return <Loader />
+    return <Loader />;
   }
 
   if (error) {
@@ -52,7 +52,7 @@ const App = () => {
   }
 
   if (loading) {
-    return <Loader />
+    return <Loader />;
   }
 
   return (
