@@ -1,4 +1,6 @@
-# g2i-code-challenge
+# Trivia App
+
+Trying out type-checking with Flow
 
 `npm start` to start
 `npm test` to test
