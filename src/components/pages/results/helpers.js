@@ -1,5 +1,6 @@
 /* @flow */
 import { useLocation } from 'react-router-dom';
+import type { Question } from '../../../types';
 
 function useQuery(): URLSearchParams { return new URLSearchParams(useLocation().search); }
 
@@ -7,7 +8,7 @@ function isResponseCorrect(question: { answer: string }, response: string): bool
   return question.answer === response;
 }
 
-function getScore(questions: Array<{answer: string}>, responses: Array<string>): string {
+function getScore(questions: Array<Question>, responses: Array<string>): string {
   let correctCount = 0;
   questions.forEach((question, index) => {
     if (isResponseCorrect(question, responses[index])) {

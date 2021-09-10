@@ -9,14 +9,11 @@ import {
   BrowserRouter as Router,
 } from 'react-router-dom';
 import { reduceQuestionsPayload } from './helpers';
+import type { Question } from './types';
 import { IntroPage, QuestionPage, ResultsPage } from './components/pages';
 
 type TriviaAppProps = {
-  questions: Array<{
-    question: string,
-    answer: string,
-    category: string
-  }>
+  questions: Array<Question>
 }
 
 const TriviaApp = React.memo((props: TriviaAppProps) => {

@@ -8,12 +8,10 @@ import {
   getScore,
   isResponseCorrect,
 } from './helpers';
+import type { Question } from '../../../types';
 
 type ResultProps = {
-  question: {
-    question: string,
-    answer: string,
-  },
+  question: Question,
   response: string,
 }
 
@@ -33,16 +31,12 @@ function Result({ question, response }: ResultProps): Node {
 }
 
 type ResultsProps = {
-  questions: Array<{
-    question: string,
-    answer: string,
-    category: string,
-  }>
+  questions: Array<Question>
 }
 
 const ResultsPage = ({ questions }: ResultsProps): Node => {
   const query = useQuery();
-  const responses = query.get('responses').split(',');
+  const responses = query.get('responses')?.split(',');
 
   if (!responses) return null;
 

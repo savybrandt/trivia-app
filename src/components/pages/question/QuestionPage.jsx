@@ -3,13 +3,10 @@ import React, { useState } from 'react';
 import type { Node } from 'react';
 import { useHistory } from 'react-router-dom';
 import './QuestionPage.css';
+import type { Question } from '../../../types';
 
 type Props = {
-  questions: Array<{
-    question: string,
-    answer: string,
-    category: string,
-  }>,
+  questions: Array<Question>,
   // eslint-disable-next-line react/require-default-props
   initQuestionNum: number, // for testing purposes
 };
