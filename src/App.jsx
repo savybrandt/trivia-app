@@ -1,5 +1,6 @@
+/* @flow */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import type { Node } from 'react';
 import useAxios from 'axios-hooks';
 import './App.css';
 import {
@@ -10,54 +11,56 @@ import {
 import { reduceQuestionsPayload } from './helpers';
 import { IntroPage, QuestionPage, ResultsPage } from './components/pages';
 
-const TriviaApp = React.memo(({ questions }) => (
-  <Router>
-    <Switch>
-      <Route path="/questions">
-        <QuestionPage questions={questions} />
-      </Route>
-      <Route path="/results">
-        <ResultsPage questions={questions} />
-      </Route>
-      <Route exact path="/">
-        <IntroPage />
-      </Route>
-    </Switch>
-  </Router>
-));
+type TriviaAppProps = {
+  questions: Array<{
+    question: string,
+    answer: string,
+    category: string
+  }>
+}
 
-TriviaApp.propTypes = {
-  questions: PropTypes.arrayOf(PropTypes.shape({
-    question: PropTypes.string.isRequired,
-    answer: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
-  })).isRequired,
-};
+const TriviaApp = React.memo((props: TriviaAppProps) => {
+  const { questions } = props;
+  return (
+    <Router>
+      <Switch>
+        <Route path="/questions">
+          <QuestionPage questions={questions} />
+        </Route>
+        <Route path="/results">
+          <ResultsPage questions={questions} />
+        </Route>
+        <Route exact path="/">
+          <IntroPage />
+        </Route>
+      </Switch>
+    </Router>
+  );
+});
 
 const questionsPath = 'https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean';
 
 const Loader = () => <h1>Loading...</h1>;
 
-const App = () => {
+function App(): Node {
   const [questions, setQuestions] = useState();
-  const [{ data, loading, error }] = useAxios(questionsPath);
+  const [{ data, error }] = useAxios(questionsPath);
 
   if (!questions && data) {
     setQuestions(reduceQuestionsPayload(data.results));
-    return <Loader />;
   }
 
   if (error) {
     throw new Error(error);
   }
 
-  if (loading) {
-    return <Loader />;
+  if (questions) {
+    return (
+      <TriviaApp questions={questions} />
+    );
   }
 
-  return (
-    <TriviaApp questions={questions} />
-  );
-};
+  return <Loader />;
+}
 
 export default App;
