@@ -1,5 +1,6 @@
+/* @flow */
 import React from 'react';
-import PropTypes from 'prop-types';
+import type { Node } from 'react';
 import { Link } from 'react-router-dom';
 import './ResultsPage.css';
 import {
@@ -8,7 +9,15 @@ import {
   isResponseCorrect,
 } from './helpers';
 
-const Result = ({ question, response }) => {
+type ResultProps = {
+  question: {
+    question: string,
+    answer: string,
+  },
+  response: string,
+}
+
+function Result({ question, response }: ResultProps): Node {
   const correct = isResponseCorrect(question, response);
   return (
     <li className="resultsListItem">
@@ -21,17 +30,17 @@ const Result = ({ question, response }) => {
       {question.question}
     </li>
   );
-};
+}
 
-Result.propTypes = {
-  question: PropTypes.shape({
-    question: PropTypes.string.isRequired,
-    answer: PropTypes.string.isRequired,
-  }).isRequired,
-  response: PropTypes.string.isRequired,
-};
+type ResultsProps = {
+  questions: Array<{
+    question: string,
+    answer: string,
+    category: string,
+  }>
+}
 
-const ResultsPage = ({ questions }) => {
+const ResultsPage = ({ questions }: ResultsProps): Node => {
   const query = useQuery();
   const responses = query.get('responses').split(',');
 
@@ -52,14 +61,6 @@ const ResultsPage = ({ questions }) => {
       <Link className="footer-link" to="/">PLAY AGAIN?</Link>
     </div>
   );
-};
-
-ResultsPage.propTypes = {
-  questions: PropTypes.arrayOf(PropTypes.shape({
-    question: PropTypes.string.isRequired,
-    answer: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
-  })).isRequired,
 };
 
 export default ResultsPage;
