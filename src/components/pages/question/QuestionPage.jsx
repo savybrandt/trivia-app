@@ -1,9 +1,20 @@
+/* @flow */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import type { Node } from 'react';
 import { useHistory } from 'react-router-dom';
 import './QuestionPage.css';
 
-const QuestionPage = ({ questions, initQuestionNum }) => {
+type Props = {
+  questions: Array<{
+    question: string,
+    answer: string,
+    category: string,
+  }>,
+  // eslint-disable-next-line react/require-default-props
+  initQuestionNum: number, // for testing purposes
+};
+
+function QuestionPage({ questions, initQuestionNum }: Props): Node {
   const history = useHistory();
   const [responses, setResponses] = useState([]);
   const [questionNum, setQuestionNum] = useState(initQuestionNum);
@@ -12,7 +23,8 @@ const QuestionPage = ({ questions, initQuestionNum }) => {
   const onResponse = (response) => {
     const updatedResponses = [...responses, ...[response]];
     if (questionNum === questions.length - 1) {
-      history.push(`/results?responses=${updatedResponses}`);
+      const responseString = JSON.stringify(updatedResponses);
+      history.push(`/results?responses=${responseString}`);
     } else {
       setResponses(updatedResponses);
       setQuestionNum(questionNum + 1);
@@ -34,18 +46,10 @@ const QuestionPage = ({ questions, initQuestionNum }) => {
       </div>
     </div>
   );
-};
-
-QuestionPage.propTypes = {
-  questions: PropTypes.arrayOf(PropTypes.shape({
-    question: PropTypes.string.isRequired,
-    answer: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired,
-  })).isRequired,
-  initQuestionNum: PropTypes.number, // for testing purposes
-};
+}
 
 QuestionPage.defaultProps = {
+  // eslint-disable-next-line react/default-props-match-prop-types
   initQuestionNum: 0,
 };
 
