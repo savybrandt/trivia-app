@@ -1,10 +1,13 @@
+/* @flow */
 import { useLocation } from 'react-router-dom';
 
-export const useQuery = () => new URLSearchParams(useLocation().search);
+function useQuery(): URLSearchParams { return new URLSearchParams(useLocation().search); }
 
-export const isResponseCorrect = (question, response) => question.answer === response;
+function isResponseCorrect(question: { answer: string }, response: string): boolean {
+  return question.answer === response;
+}
 
-export const getScore = (questions, responses) => {
+function getScore(questions: Array<{answer: string}>, responses: Array<string>): string {
   let correctCount = 0;
   questions.forEach((question, index) => {
     if (isResponseCorrect(question, responses[index])) {
@@ -12,4 +15,10 @@ export const getScore = (questions, responses) => {
     }
   });
   return `${correctCount} / ${questions.length}`;
+}
+
+export {
+  useQuery,
+  isResponseCorrect,
+  getScore,
 };
